@@ -37,7 +37,6 @@ export default function GraphVisualizer({ data, centerNode, loading, onNodeClick
       }));
   }, [data, centerNode]);
 
-  // 🟡 צמתים
   const nodes = useMemo(() => {
     if (!data?.nodes) return [];
     return data.nodes.map((n) => ({
@@ -48,7 +47,6 @@ export default function GraphVisualizer({ data, centerNode, loading, onNodeClick
 
   const graphData = useMemo(() => ({ nodes, links: validLinks }), [nodes, validLinks]);
 
-  // ✨ ציור
   return (
     <div className="relative w-full flex justify-center items-center">
       {loading && (
@@ -63,7 +61,7 @@ export default function GraphVisualizer({ data, centerNode, loading, onNodeClick
           backgroundColor="#0d1117"
           nodeRelSize={7}
           linkColor={(link) => link.color}
-          linkWidth={(link) => getLinkWidth(link.value)} // ✅ סקייל נורמלי
+          linkWidth={(link) => getLinkWidth(link.value)} 
           linkDirectionalArrowLength={5}
           linkDirectionalArrowRelPos={0.95}
           linkCurvature={0.2}

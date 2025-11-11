@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GraphData } from "../types/graph";
+import { GraphData, GraphNode } from "../types/graph";
 import GraphVisualizer from "../components/Graph/GraphVisualizer";
 import AddressDetails from "../components/AddressDetails/AddressDetails";
 import ErrorBoundary from "../components/common/ErrorBoundary";
@@ -62,7 +62,6 @@ export default function Home() {
       <div className="min-h-screen flex flex-col items-center bg-[#0d1117] text-white p-6">
         <h1 className="text-3xl font-bold mb-4 text-yellow-400">Blockchain Investigator</h1>
 
-        {/* Input */}
         <div className="flex gap-2 mb-4">
           <input
             type="text"
@@ -84,7 +83,6 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Error message */}
         {error && (
           <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-2 rounded mb-4">
             Error: {error}
@@ -97,17 +95,15 @@ export default function Home() {
           </div>
         )}
 
-        {/* Graph */}
         {data && (
           <GraphVisualizer
             data={data}
             centerNode={address}
             loading={loading}
-            onNodeClick={(id, node) => handleNodeClick(id, node)}
+            onNodeClick={(id:string, node:GraphNode) => handleNodeClick(id, node)}
           />
         )}
 
-        {/* Address Details */}
         {selectedNode && (
           <AddressDetails
             node={selectedNode}
@@ -129,7 +125,7 @@ export default function Home() {
               {logs.length === 0 ? (
                 <p className="text-gray-500">No API activity yet.</p>
               ) : (
-                logs.map((log, idx) => <div key={idx}>{log}</div>)
+                logs.map((log: string, idx: number) => <div key={idx}>{log}</div>)
               )}
             </div>
           )}

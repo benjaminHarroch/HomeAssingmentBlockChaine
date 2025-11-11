@@ -1,34 +1,49 @@
-"use client";
 import React from "react";
 
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
+interface ErrorBoundaryProps {
+  onRetry: () => void;
+  children?: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+export default class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
+
+  handleRetry = () => {
+    this.setState({ hasError: false, error: null });
+    this.props.onRetry();
+  };
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="p-6 bg-red-800/30 border border-red-500 text-red-300 rounded">
-          <h2 className="text-lg font-bold mb-2">Something went wrong.</h2>
-          <p className="mb-4">{this.state.error?.message}</p>
+        <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-2 rounded mb-4">
+          <p>Error: {this.state.error?.message}</p>
           <button
-            onClick={() => {
-              this.setState({ hasError: false, error: null });
-              this.props.onRetry?.();
-            }}
-            className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-500"
+            className="ml-3 underline hover:text-yellow-400"
+            onClick={this.handleRetry}
           >
             Retry
           </button>
         </div>
       );
     }
+
+    // 👇 הוספה קריטית
     return this.props.children;
   }
 }

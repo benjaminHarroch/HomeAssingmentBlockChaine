@@ -1,6 +1,9 @@
 export interface GraphNode {
   id: string;
   label?: string;
+  color?: string;
+  x?: number;
+  y?: number;
   totalSent?: number;
   totalReceived?: number;
 }
@@ -8,8 +11,10 @@ export interface GraphNode {
 export interface GraphLink {
   nodeSource: string;
   nodeTarget: string;
-  valueTransaction: number;
-  txid: string;
+  valueTransaction?: number;
+  value?: number;
+  color?: string;
+  txid?: string;
 }
 
 export interface GraphData {

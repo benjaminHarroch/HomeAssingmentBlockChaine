@@ -20,8 +20,7 @@ The tool also provides:
 - **TypeScript** — Type-safe and maintainable code  
 - **React / Hooks** — State management and reactivity  
 - **react-force-graph** — Interactive graph visualization with directional arrows  
-- **Material-UI (MUI)** — Responsive UI components  
-- **Axios / Fetch API** — Data fetching  
+- **Fetch API** — Data fetching  
 - **Jest + React Testing Library** — Unit and component testing  
 - **Docker** — Containerized environment for easy setup and deployment  
 
@@ -36,7 +35,7 @@ npm run dev
 
 ---
 
-###🧪 Running Tests
+*###*🧪 Running Tests
 This project includes unit and component tests to ensure reliability and maintainability.
 Tests cover core modules such as API routes, hooks, and React components.
 Run all tests

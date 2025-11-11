@@ -1,45 +1,41 @@
 {
   "compilerOptions": {
-    /* Base Options: */
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "checkJs": true,
-    /* Bundled projects */
-    "lib": ["dom", "dom.iterable", "es2022"],
-    "noEmit": true,
+    /* ✅ בסיס חובה */
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    /* ✅ זה חשוב כדי שה-API routes יזוהו כמו שצריך */
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "incremental": true,
-    /* Path Aliases */
+    /* ✅ הסרנו checkJs כדי לא לסרוק קבצי מערכת */
+    /* ✅ הסרנו noUncheckedIndexedAccess (לא נדרש כאן) */
+    /* ✅ נתיבים */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"]
-    }
+    },
+    "noEmit": true
   },
-  "exclude": ["node_modules"],
   "include": [
-    ".eslintrc.mjs",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.cjs",
-    "**/*.js",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }

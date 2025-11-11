@@ -1,34 +1,47 @@
-# 🧠 Blockchain Investigator
+# 🔗 Blockchain Investigator Tool
 
-**Blockchain Investigator** is an interactive web app for visualizing Bitcoin wallet transactions.  
-Enter any Bitcoin address and instantly explore its **connected wallets**, see **incoming/outgoing transactions**, and view how much each address has **sent** and **received**.  
-The app is fully written in **TypeScript** with **Next.js**, supports **Docker**, and uses **react-force-graph-2d** for beautiful interactive visualization.
+## 📖 Overview
+
+This project is a graphical tool for blockchain investigators.  
+It allows users to input a Bitcoin wallet address and visualize the related transactions as a dynamic directed graph.  
+Each node represents a wallet address, and each edge represents a transaction (asset transfer).  
+Users can click on nodes to expand and load additional connected wallets dynamically.
+
+The tool also provides:
+- A collapsible log window showing all API calls to the blockchain provider  
+- A wallet details panel that updates when selecting a new node  
+- Loading indicators and error handling  
 
 ---
 
-## 🚀 Quick Start (Run with Docker)
+## 🧰 Technologies Used
 
-You can run this entire project with **one single Docker command** — no setup required.
+- **Next.js 14 (App Router Architecture)** — Fullstack framework for both frontend and backend routes  
+- **TypeScript** — Type-safe and maintainable code  
+- **React / Hooks** — State management and reactivity  
+- **react-force-graph** — Interactive graph visualization with directional arrows  
+- **Material-UI (MUI)** — Responsive UI components  
+- **Axios / Fetch API** — Data fetching  
+- **Jest + React Testing Library** — Unit and component testing  
+- **Docker** — Containerized environment for easy setup and deployment  
 
-##  1. Build the image
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Install Dependencies
 ```bash
-docker build -t blockchain-investigator .
-
-##  2.run the container
-docker run -p 3000:3000 blockchain-investigator
-
-##  3.open your browser
-http://localhost:3000
-
+npm install
+npm run dev
 
 ---
 
-### If you prefer to run it manually using Node.js:
-   git clone https://github.com/<your-username>/blockchain-investigator.git
-   cd blockchain-investigator
-   npm install
-   npm run dev
-   http://localhost:3000
+###🧪 Running Tests
+This project includes unit and component tests to ensure reliability and maintainability.
+Tests cover core modules such as API routes, hooks, and React components.
+Run all tests
 
+npm run test
 
 ---
+

@@ -20,7 +20,8 @@ docker run -p 3000:3000 blockchain-investigator
 ###  3.open your browser
 http://localhost:3000
 
-### If you prefer to run it manually using Node.js:
+---
+## If you prefer to run it manually using Node.js:
 git clone https://github.com/<your-username>/blockchain-investigator.git
 cd blockchain-investigator
 npm install

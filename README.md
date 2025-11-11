@@ -10,20 +10,25 @@ The app is fully written in **TypeScript** with **Next.js**, supports **Docker**
 
 You can run this entire project with **one single Docker command** — no setup required.
 
-###  1. Build the image
+##  1. Build the image
 ```bash
 docker build -t blockchain-investigator .
 
-###  2.run the container
+##  2.run the container
 docker run -p 3000:3000 blockchain-investigator
 
-###  3.open your browser
+##  3.open your browser
 http://localhost:3000
 
+
 ---
-## If you prefer to run it manually using Node.js:
-git clone https://github.com/<your-username>/blockchain-investigator.git
-cd blockchain-investigator
-npm install
-npm run dev
-http://localhost:3000
+
+### If you prefer to run it manually using Node.js:
+   git clone https://github.com/<your-username>/blockchain-investigator.git
+   cd blockchain-investigator
+   npm install
+   npm run dev
+   http://localhost:3000
+
+
+---

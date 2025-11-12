@@ -7,6 +7,7 @@ import AddressDetails from "../components/AddressDetails/AddressDetails";
 import ErrorBoundary from "../components/common/ErrorBoundary";
 
 export default function Home() {
+
   const [address, setAddress] = useState("");
   const [data, setData] = useState<GraphData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -15,47 +16,74 @@ export default function Home() {
   const [selectedNode, setSelectedNode] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function fetchGraph(addr?: string, loadMore = false) {
-    const target = addr || address;
-    if (!target) return;
+function calculateTotals(address: string, data: GraphData) {
+  let totalSent = 0;
+  let totalReceived = 0;
 
-    setAddress(target);
-    setError(null);
-    setLoading(true);
-
-    const start = new Date();
-    setLogs((prev) => [
-      ...prev,
-      `📡 [${start.toLocaleTimeString()}] Fetching graph for: ${target}`,
-    ]);
-
-    try {
-      const res = await fetch(`/api/blockchain?address=${target}&limit=${loadMore ? 50 : 20}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-
-      const end = new Date();
-      setLogs((prev) => [
-        ...prev,
-        `✅ [${end.toLocaleTimeString()}] Loaded ${json?.links?.length} transactions (${end.getTime() - start.getTime()}ms)`,
-      ]);
-      setData(json);
-    } catch (err: any) {
-      setError(err.message);
-      const time = new Date();
-      setLogs((prev) => [
-        ...prev,
-        `❌ [${time.toLocaleTimeString()}] Error: ${err.message}`,
-      ]);
-    } finally {
-      setLoading(false);
+  for (const link of data.links) {
+    if (link.nodeSource === address) {
+      totalSent += link.valueTransaction;
+    }
+    if (link.nodeTarget === address) {
+      totalReceived += link.valueTransaction;
     }
   }
 
-  const handleNodeClick = (id: string, nodeData?: any) => {
-    setSelectedNode(nodeData || { id });
-    fetchGraph(id);
-  };
+  return { totalSent, totalReceived };
+}
+
+  async function fetchGraph(addr?: string, loadMore = false, fromClick = false) {
+  const target = addr || address;
+  if (!target) return;
+
+  setAddress(target);
+  setError(null);
+  setLoading(true);
+
+  const start = new Date();
+  setLogs((prev) => [
+    ...prev,
+    `📡 [${start.toLocaleTimeString()}] Fetching graph for: ${target}`,
+  ]);
+
+  try {
+    const res = await fetch(`/api/blockchain?address=${target}&limit=${loadMore ? 50 : 20}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    console.log("Fetched graph data:", json);
+    const end = new Date();
+    setLogs((prev) => [
+      ...prev,
+      `✅ [${end.toLocaleTimeString()}] Loaded ${json?.links?.length} transactions (${end.getTime() - start.getTime()}ms)`,
+    ]);
+
+    setData(json);
+
+    if (!fromClick) {
+
+      const totals = calculateTotals(target, json);
+      //console.log("Totals for", target, totals);
+       setSelectedNode({ id: target , ...totals });
+    }
+
+  } catch (err: any) {
+    setError(err.message);
+    const time = new Date();
+    setLogs((prev) => [
+      ...prev,
+      `❌ [${time.toLocaleTimeString()}] Error: ${err.message}`,
+    ]);
+  } finally {
+    setLoading(false);
+  }
+}
+
+const handleNodeClick = (id: string, nodeData?: any) => {
+  setSelectedNode(nodeData || { id });
+  fetchGraph(id, false, true); // 👈 Pass fromClick=true to avoid duplicate setSelectedNode
+};
+
+
 
   return (
     <ErrorBoundary onRetry={() => fetchGraph()}>

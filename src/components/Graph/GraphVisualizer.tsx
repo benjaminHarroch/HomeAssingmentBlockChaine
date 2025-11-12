@@ -101,6 +101,7 @@ export default function GraphVisualizer({
             }
           }}
           onNodeClick={(node: Partial<GraphNode>) => {
+            //console.log("Node clicked:", node);
             const id = String(node.id ?? "");
             if (id !== centerNode) onNodeClick(id, node as GraphNode);
           }}

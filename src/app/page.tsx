@@ -37,7 +37,7 @@ export default function Home() {
       const end = new Date();
       setLogs((prev) => [
         ...prev,
-        `✅ [${end.toLocaleTimeString()}] Loaded ${json.links.length} transactions (${end.getTime() - start.getTime()}ms)`,
+        `✅ [${end.toLocaleTimeString()}] Loaded ${json?.links?.length} transactions (${end.getTime() - start.getTime()}ms)`,
       ]);
       setData(json);
     } catch (err: any) {
@@ -111,7 +111,6 @@ export default function Home() {
           />
         )}
 
-        {/* API Logs */}
         <div className="fixed bottom-4 right-4 w-96 bg-[#1a1f25] rounded-lg shadow-lg overflow-hidden border border-gray-700">
           <button
             onClick={() => setShowLogs((s) => !s)}

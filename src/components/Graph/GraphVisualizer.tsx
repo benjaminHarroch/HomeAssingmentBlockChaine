@@ -65,7 +65,7 @@ export default function GraphVisualizer({
   const graphData = useMemo(() => ({ nodes, links: validLinks }), [nodes, validLinks]);
 
   return (
-    <div className="relative w-full flex justify-center items-center">
+    <div data-testid="graph-container" className="relative w-full flex justify-center items-center">
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-10">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>

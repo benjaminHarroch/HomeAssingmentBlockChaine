@@ -43,7 +43,6 @@ export default class ErrorBoundary extends React.Component<
       );
     }
 
-    // 👇 הוספה קריטית
     return this.props.children;
   }
 }
